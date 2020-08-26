@@ -82,9 +82,11 @@ function makeBins(n) {
   return binCounts;
 };
 
-const WIDTH = 320;
-const HEIGHT = 300;
-const INNER_HEIGHT = HEIGHT - 20;
+const WIDTH = 300;
+const WIDTH_PAD = 4;
+const HEIGHT = 250;
+const HEIGHT_PAD = 10;
+const INNER_HEIGHT = HEIGHT - (2 * HEIGHT_PAD);
 var BAR_WIDTH = 24;
 var BAR_GAP = 8;
 
@@ -105,7 +107,7 @@ const sampleSize = 200;
 var binCounts = makeBins(sampleSize);
 var histData = preprocess(binCounts);
 
-BAR_WIDTH = Math.floor(WIDTH / binCounts.length) - BAR_GAP
+BAR_WIDTH = Math.floor((WIDTH - (2 * WIDTH_PAD)) / binCounts.length) - BAR_GAP
 
 
 
@@ -264,8 +266,8 @@ const Viz = () => {
           style={ barStyle }
           width={ BAR_WIDTH }
           height={ rangeScale(d) }
-          y={ HEIGHT - rangeScale(d) }
-          x={ i * (BAR_WIDTH + BAR_GAP) }
+          y={ (HEIGHT - rangeScale(d)) - HEIGHT_PAD }
+          x={ (i * (BAR_WIDTH + BAR_GAP)) + WIDTH_PAD }
         />
       )) }
     </svg>
@@ -275,9 +277,31 @@ const Viz = () => {
 const Placeholder = () => {
 
   return (
+    <Fragment>
+    <Flex style={{ justifyContent: "center" }}>
+      <Box
+        style={{
+          marginLeft: `auto`,
+          marginRight: `auto`,
+          maxWidth: rhythm(30),
+          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+        }}
+      >
+        <Flex style={{ justifyContent: "center" }}>
+        <header>
+          <h3>joypauls.github.io is napping</h3>
+        </header>
+        </Flex>
+        <main style={{ display: "flex", flexDirection: "column", alignItems: "center", }}>
+          <h5>I'm working on it! Migrating over to React (Gatsby specifically), check back later!</h5>
+          <h5>Link</h5>
+        </main>
+      </Box>
+    </Flex>
     <Flex style={{ justifyContent: "center" }}>
       <Viz />
     </Flex>
+    </Fragment>
   );
 }
 

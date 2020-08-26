@@ -86,21 +86,6 @@ const PostCard = ({...props}) => {
 const SiteDownContent = () => {
   return (
     <Fragment>
-      <div
-        style={{
-          marginLeft: `auto`,
-          marginRight: `auto`,
-          maxWidth: rhythm(30),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-        }}
-      >
-        <header>
-          <h3>Working on it!</h3>
-        </header>
-        <main style={{ display: "flex", flexDirection: "column", }}>
-          <h5>sdngjksfdgnjdkgfbnjkn</h5>
-        </main>
-      </div>
 
       <Placeholder />
 
