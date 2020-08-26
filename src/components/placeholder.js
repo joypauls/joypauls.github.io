@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { useColorMode } from "theme-ui";
-import { React, useState, Fragment } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 import { Link } from "gatsby";
 import { rhythm, scale } from "../utils/typography";
 import { Button, Flex, Text, Box } from "rebass";
@@ -15,6 +15,40 @@ import { IoMdStats } from "react-icons/io";
 // import { select, selectAll } from 'd3-selection';
 
 import * as d3 from "d3";
+
+// import { select, selectAll } from 'd3-selection';
+// import transition from 'd3-transition';
+// import { scaleLinear, range } from 'd3-scale';
+// import { randomNormal } from "d3-random";
+// import { histogram } from "d3-array";
+
+
+
+
+// import React, { useState, useEffect, useRef } from 'react';
+
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
+
+
+
 
 
 function generateNormalSamples(n=10) {
@@ -75,79 +109,176 @@ BAR_WIDTH = Math.floor(WIDTH / binCounts.length) - BAR_GAP
 
 
 
-class Placeholder extends React.Component {
+// class Placeholder extends React.Component {
 
-  constructor(props) {
-    super(props);
+//   constructor(props) {
+//     super(props);
     
-    // initialize array of hexData in state
-    this.state = {  };
-  }
+//     // initialize array of hexData in state
+//     this.state = {  };
+//   }
 
-  componentDidMount() {
-      // D3 Code to create the chart
-      // using this._rootNode as container
+//   componentDidMount() {
+//       // D3 Code to create the chart
+//       // using this._rootNode as container
 
-      this.hist = d3.select(this._rootNode).append("svg")
-        .attr("width", WIDTH)
-        .attr("height", HEIGHT)
-        .append("g");
+//       // this.hist = d3.select(this._rootNode).append("svg")
+//       //   .attr("width", WIDTH)
+//       //   .attr("height", HEIGHT)
+//       //   .append("g");
 
-      const t = d3.transition()
-        .duration(1000)
-        .transition()
-        .ease(d3.easeBackInOut);
+//       var hist = d3.select("#d3-svg")
+//         .attr("width", WIDTH)
+//         .attr("height", HEIGHT)
+//         .append("g");
 
-      const bar = this.hist.selectAll("g").data(histData, d => d.id);
-      // EXIT section
-      bar.exit().remove();
+//       const t = d3.transition()
+//         .duration(1000)
+//         .transition()
+//         .ease(d3.easeBackInOut);
+
+//       const bar = hist.selectAll("g").data(histData, d => d.id);
+//       // EXIT section
+//       bar.exit().remove();
+
+//       console.log(bar)
     
-      var scale = d3.scaleLinear().domain([0, d3.max(binCounts)]).range([0, INNER_HEIGHT]);
-      
-      // UPDATE section
-      bar.transition(t).attr(
-        "transform", 
-        (d, i) => `translate(${i * (BAR_WIDTH + BAR_GAP)},${y(d, scale)})`
-      );
+//       var scale = d3.scaleLinear().domain([0, d3.max(binCounts)]).range([0, INNER_HEIGHT]);
 
-      bar.select("rect").transition(t).attr("height", (d) => (height(d, scale)));
+//       // UPDATE section
+//       bar.transition(t).attr(
+//         "transform", 
+//         (d, i) => `translate(${i * (BAR_WIDTH + BAR_GAP)},${y(d, scale)})`
+//       );
+
+//       bar.select("rect").transition(t).attr("height", (d) => (height(d, scale)));
       
-      // ENTER section
-      const barEnter = bar.enter()
-        .append("g")
-        .attr(
-          "transform", 
-          (d, i) => `translate(${i * (BAR_WIDTH + BAR_GAP)},${INNER_HEIGHT})`
-        );
+//       // ENTER section
+//       const barEnter = bar.enter()
+//         .append("g")
+//         .attr(
+//           "transform", 
+//           (d, i) => `translate(${i * (BAR_WIDTH + BAR_GAP)},${INNER_HEIGHT})`
+//         );
     
-      barEnter
-        .transition(t)
-        .attr(
-          "transform", 
-          (d, i) => `translate(${i * (BAR_WIDTH + BAR_GAP)},${y(d, scale)})`
-        );
+//       barEnter
+//         // .transition(t)
+//         .attr(
+//           "transform", 
+//           (d, i) => `translate(${i * (BAR_WIDTH + BAR_GAP)},${y(d, scale)})`
+//         );
       
-      const rect = barEnter.append("rect")
-          .attr("x", 0)
-          .attr("y", 0)
-          .attr("width", BAR_WIDTH)
-          .attr("height", 0);
+//       const rect = barEnter.append("rect")
+//           .attr("x", 0)
+//           .attr("y", 0)
+//           .attr("width", BAR_WIDTH)
+//           .attr("height", 0);
       
-      rect.transition(t).attr("height", (d) => (height(d, scale)));
-  };
+//       rect.attr("height", (d) => (height(d, scale)));
+//   }
 
-  shouldComponentUpdate() {
-      // Prevents component re-rendering
-      return false;
-  };
+//   shouldComponentUpdate() {
+//       // Prevents component re-rendering
+//       return false;
+//   }
 
-  _setRef(componentNode) {
-      this._rootNode = componentNode;
-  };
+//   // _setRef(componentNode) {
+//   //     this._rootNode = componentNode;
+//   // }
 
-  render() {
-      <div className="svg-container" ref={this._setRef.bind(this)} />
-  };
+//   render() {
+//     // return <svg ref={(elem) => { this.svg = elem; }} />;
+//     return <svg id="d3-svg"></svg>;
+//   }
+// }
+
+
+// const generateDataset = () => (
+//   Array(10).fill(0).map(() => ([
+//     Math.random() * 80 + 10,
+//     Math.random() * 35 + 10,
+//   ]))
+// );
+
+// const Placeholder = () => {
+
+//   const [dataset, setDataset] = useState(
+//     generateDataset()
+//   );
+
+//   useInterval(() => {
+//     const newDataset = generateDataset();
+//     setDataset(newDataset);
+//   }, 2000);
+
+//   return (
+//     <svg viewBox="0 0 100 50">
+//       {dataset.map(([x, y], i) => (
+//         <circle
+//           cx={x}
+//           cy={y}
+//           r="3"
+//         />
+//       ))}
+//     </svg>
+//   );
+// }
+
+
+const generateDataset = () => (
+  Array(10).fill(0).map(() => ([
+    Math.random() * 80 + 10,
+    Math.random() * 35 + 10,
+  ]))
+);
+
+
+
+var rangeScale = d3.scaleLinear().domain([0, d3.max(binCounts)]).range([0, INNER_HEIGHT]);
+console.log(rangeScale(binCounts[4]));
+
+
+const barStyle = {
+  fill: "#8b32eb", 
+  fillOpacity: 0.6,
+  stroke: "#8b32eb",
+  strokeWidth: "2px",
+  rx: 2,
+}
+
+const Viz = () => {
+
+  const [dataset, setDataset] = useState(
+    generateDataset()
+  );
+
+  // useInterval(() => {
+  //   const newDataset = generateDataset();
+  //   setDataset(newDataset);
+  // }, 2000);
+
+  return (
+    <svg width={ WIDTH.toString() } height={ HEIGHT.toString() }>
+      { binCounts.map((d, i) => (
+        <rect
+          style={ barStyle }
+          width={ BAR_WIDTH }
+          height={ rangeScale(d) }
+          y={ HEIGHT - rangeScale(d) }
+          x={ i * (BAR_WIDTH + BAR_GAP) }
+        />
+      )) }
+    </svg>
+  );
+}
+
+const Placeholder = () => {
+
+  return (
+    <Flex style={{ justifyContent: "center" }}>
+      <Viz />
+    </Flex>
+  );
 }
 
 export default Placeholder;
