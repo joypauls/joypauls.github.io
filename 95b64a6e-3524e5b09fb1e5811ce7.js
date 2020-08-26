@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{IdFE:function(t,n,a){"use strict";a.d(n,"a",(function(){return c}));var h=a("Lnxd");function c(t){return Object(h.a)({tag:"svg",attr:{viewBox:"0 0 512 512"},child:[{tag:"path",attr:{d:"M176 64h64v384h-64zM80 336h64v112H80zM272 272h64v176h-64zM368 176h64v272h-64z"}}]})(t)}}}]);
+//# sourceMappingURL=95b64a6e-3524e5b09fb1e5811ce7.js.map
