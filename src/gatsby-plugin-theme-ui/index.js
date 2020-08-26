@@ -41,8 +41,8 @@ export default {
             bg: "transparent",
             borderColor: "secondary",
             "&:hover": {
-                color: "primary",
-                bg: "white",
+                color: "white",
+                bg: "secondary",
             },
         },
         secondary: {

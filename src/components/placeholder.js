@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { useColorMode } from "theme-ui";
-import React, { useState, useEffect, useRef, Fragment } from "react";
+import React, { useState, useEffect, useRef, useCallback, Fragment } from "react";
 import { Link } from "gatsby";
 import { rhythm, scale } from "../utils/typography";
 import { Button, Flex, Text, Box } from "rebass";
@@ -103,8 +103,8 @@ function height(d, scale) {
   return scale(d.value);
 }
 
-const sampleSize = 200;
-var binCounts = makeBins(sampleSize);
+const SAMPLE_SIZE = 200;
+var binCounts = makeBins(SAMPLE_SIZE);
 var histData = preprocess(binCounts);
 
 BAR_WIDTH = Math.floor((WIDTH - (2 * WIDTH_PAD)) / binCounts.length) - BAR_GAP
@@ -240,19 +240,72 @@ var rangeScale = d3.scaleLinear().domain([0, d3.max(binCounts)]).range([0, INNER
 console.log(rangeScale(binCounts[4]));
 
 
+
+const generateBinCounts = () => {
+  var binCounts = makeBins(SAMPLE_SIZE);
+
+  binCounts = binCounts.map((d) => {
+    if (d <= 1) {
+      return 1;
+    } else {
+      return d;
+    }
+  })
+
+  var rangeScale = d3.scaleLinear().domain([0, d3.max(binCounts)]).range([0, INNER_HEIGHT]);
+  var scaledBinCounts = binCounts.map((d) => rangeScale(d));
+
+  return scaledBinCounts;
+}
+
+const generateRangeScale = (data) => {
+  var rangeScale = d3.scaleLinear().domain([0, d3.max(data)]).range([0, INNER_HEIGHT]);
+  return rangeScale;
+}
+
+
+
 const barStyle = {
   fill: "#8b32eb", 
-  fillOpacity: 0.6,
+  fillOpacity: 0.5,
   stroke: "#8b32eb",
   strokeWidth: "2px",
-  rx: 2,
+  // rx: 2,
 }
+
+const VizButton = ({ variant = "primary", ...props }) => {
+  return (
+    <Button 
+      {...props} 
+      sx={{
+        appearance: "none",
+        display: "inline-block",
+        textAlign: "center",
+        fontSize: "medium",
+        border: "3px solid",
+        borderRadius: "2rem",
+        margin: "5px",
+        variant: `buttons.${variant}`,
+      }}
+    >
+      { props.text }
+    </Button>
+  )
+};
 
 const Viz = () => {
 
-  const [dataset, setDataset] = useState(
-    generateDataset()
+  const [data, setData] = useState(
+    generateBinCounts()
   );
+
+  const handleClick = useCallback(() => {
+    setData(generateBinCounts());
+  })
+
+  // const [rangeScale, setRangeScale] = useState(
+  //   generateRangeScale(data)
+  // );
 
   // useInterval(() => {
   //   const newDataset = generateDataset();
@@ -260,17 +313,24 @@ const Viz = () => {
   // }, 2000);
 
   return (
-    <svg width={ WIDTH.toString() } height={ HEIGHT.toString() }>
-      { binCounts.map((d, i) => (
-        <rect
-          style={ barStyle }
-          width={ BAR_WIDTH }
-          height={ rangeScale(d) }
-          y={ (HEIGHT - rangeScale(d)) - HEIGHT_PAD }
-          x={ (i * (BAR_WIDTH + BAR_GAP)) + WIDTH_PAD }
-        />
-      )) }
-    </svg>
+    <Fragment>
+    <Flex style={{ justifyContent: "center" }}>
+      <VizButton text="Sample" onClick={ handleClick } />
+    </Flex>
+    <Flex style={{ justifyContent: "center" }}>
+      <svg width={ WIDTH.toString() } height={ HEIGHT.toString() }>
+        { data.map((d, i) => (
+          <rect
+            style={ barStyle }
+            width={ BAR_WIDTH }
+            height={ d }
+            y={ (HEIGHT - d) - HEIGHT_PAD }
+            x={ (i * (BAR_WIDTH + BAR_GAP)) + WIDTH_PAD }
+          />
+        )) }
+      </svg>
+    </Flex>
+    </Fragment>
   );
 }
 
@@ -289,18 +349,22 @@ const Placeholder = () => {
       >
         <Flex style={{ justifyContent: "center" }}>
         <header>
-          <h3>joypauls.github.io is napping</h3>
+          <h4>
+            <a href="https://joypauls.github.io">joypauls.github.io</a> is napping
+            <span role="img" aria-label="snooze">&#128564;</span>
+          </h4>
         </header>
         </Flex>
-        <main style={{ display: "flex", flexDirection: "column", alignItems: "center", }}>
-          <h5>I'm working on it! Migrating over to React (Gatsby specifically), check back later!</h5>
-          <h5>Link</h5>
+        <Flex style={{ justifyContent: "center" }}>
+        <main style={{ display: "flex", justifyContent: "center" }}>
+          <h5><a href="https://github.com/joypauls">I'm</a> working on it! Migrating this site over to React (<a href="https://www.gatsbyjs.com/">Gatsby</a> specifically) to be like the cool frontend kids. Check back later!</h5>
         </main>
+        </Flex>
       </Box>
     </Flex>
-    <Flex style={{ justifyContent: "center" }}>
-      <Viz />
-    </Flex>
+
+    <Viz />
+    
     </Fragment>
   );
 }
