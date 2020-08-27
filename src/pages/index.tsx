@@ -40,7 +40,7 @@ type Data = {
 const postCardStyle = {
   p: rhythm(1/2),
   borderRadius: 4,
-  boxShadow: '0 0 8px rgba(0, 0, 0, .25)',
+  // boxShadow: '0 0 8px rgba(0, 0, 0, .25)',
   border: "solid 4px",
   borderColor: "primary",
   marginBottom: rhythm(2),

@@ -10,8 +10,8 @@ module.exports = {
     social: {
       twitter: ``,
     },
-    // isUp: true,
-    isUp: false,
+    isUp: true,
+    // isUp: false,
   },
   plugins: [
     {
@@ -90,12 +90,12 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-typography`,
+    //   options: {
+    //     pathToConfigModule: `src/utils/typography`,
+    //   },
+    // },
     `gatsby-plugin-theme-ui`,
     
     // this (optional) plugin enables Progressive Web App + Offline functionality

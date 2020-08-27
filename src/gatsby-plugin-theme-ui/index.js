@@ -1,12 +1,21 @@
-export default {
+import { toTheme } from "@theme-ui/typography"
+import noriega from "typography-theme-noriega"
+import merge from "deepmerge"
+
+
+
+export default merge(toTheme(noriega), {
     useLocalStorage: false, // this disables persisting color scheme for user
     colors: {
       text: "#333",
       background: "#f5f0f4",
       primary: "#8b32eb",
-      secondary: "#e86d84",
-      primaryLight: "#c3a0e8",
+      primaryDark: "#59377A",
+      // secondary: "#e86d84",
+      secondary: "#e57780",
+      primaryLight: "#d9cae8",
     //   accent: "#ff7891",
+
       modes: {
         dark: {
           text: '#fff',
@@ -16,25 +25,25 @@ export default {
         }
       }
     },
-    fonts: {
-      body: "system-ui, sans-serif",
-      heading: "system-ui, sans-serif",
-      monospace: "Menlo, monospace",
-    },
-    fontWeights: {
-      body: 400,
-      heading: 700,
-      bold: 700,
-    },
+    // fonts: {
+    //   body: "Inter, sans-serif",
+    //   heading: "inherit",
+    //   monospace: "Menlo, monospace",
+    // },
+    // fontWeights: {
+    //   body: 400,
+    //   heading: 700,
+    //   bold: 700,
+    // },
     shadows: {
         textShadow: "none",
     },
-    lineHeights: {
-      body: 1.5,
-      heading: 1.125,
-    },
-    fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
-    space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+    // lineHeights: {
+    //   body: 1.5,
+    //   heading: 1.125,
+    // },
+    // fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
+    // space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
     buttons: {
         primary: {
             color: "secondary",
@@ -54,4 +63,4 @@ export default {
             },
         },
       },
-}
+});
