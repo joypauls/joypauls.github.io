@@ -15,7 +15,6 @@ export default merge(toTheme(noriega), {
       secondary: "#e57780",
       primaryLight: "#d9cae8",
     //   accent: "#ff7891",
-
       modes: {
         dark: {
           text: '#fff',
@@ -38,10 +37,10 @@ export default merge(toTheme(noriega), {
     shadows: {
         textShadow: "none",
     },
-    // lineHeights: {
-    //   body: 1.5,
-    //   heading: 1.125,
-    // },
+    lineHeights: {
+      body: 1,
+      heading: 1,
+    },
     // fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
     // space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
     buttons: {

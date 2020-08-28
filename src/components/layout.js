@@ -21,7 +21,7 @@ const NavButton = ({ variant = "primary", ...props }) => {
         textAlign: "center",
         fontSize: "medium",
         border: "3px solid",
-        borderRadius: "2rem",
+        // borderRadius: "2rem",
         margin: "5px",
         variant: `buttons.${variant}`,
       }}

@@ -20,7 +20,7 @@ const DonateButton = ({...props}) => {
             textAlign: "center",
             fontSize: "small",
             border: "2px solid",
-            borderRadius: "2rem",
+            borderRadius: "0",
             margin: "5px",
             borderColor: "#FFFFFF",
             color: "#FFFFFF",
