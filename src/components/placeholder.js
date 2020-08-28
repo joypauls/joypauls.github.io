@@ -269,7 +269,7 @@ const barStyle = {
   fill: "#8b32eb", 
   fillOpacity: 0.5,
   stroke: "#8b32eb",
-  strokeWidth: "2px",
+  strokeWidth: "0",
   // rx: 2,
 }
 
@@ -282,8 +282,8 @@ const VizButton = ({ variant = "primary", ...props }) => {
         display: "inline-block",
         textAlign: "center",
         fontSize: "medium",
-        border: "3px solid",
-        borderRadius: "2rem",
+        border: "2px solid",
+        borderRadius: "0",
         margin: "5px",
         variant: `buttons.${variant}`,
       }}
