@@ -39,9 +39,9 @@ type Data = {
 
 const postCardStyle = {
   p: rhythm(1/2),
-  borderRadius: 4,
+  borderRadius: 2,
   // boxShadow: '0 0 8px rgba(0, 0, 0, .25)',
-  border: "solid 4px",
+  border: "solid 1px",
   borderColor: "primary",
   marginBottom: rhythm(2),
   width: "100%",

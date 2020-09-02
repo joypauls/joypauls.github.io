@@ -20,8 +20,8 @@ const NavButton = ({ variant = "primary", ...props }) => {
         display: "inline-block",
         textAlign: "center",
         fontSize: "medium",
-        border: "3px solid",
-        // borderRadius: "2rem",
+        border: "1px solid",
+        borderRadius: 2,
         margin: "5px",
         variant: `buttons.${variant}`,
       }}
@@ -106,7 +106,7 @@ const Layout = ({ location, title, description, children }) => {
   }
   return (
     <Fragment>
-      <BLMBanner />
+      {/* <BLMBanner /> */}
       <div
         style={{
           marginLeft: `auto`,
